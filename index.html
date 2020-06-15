@@ -13,8 +13,12 @@
       Web Sketch Pad
     </header>
     <div class ="options">
-      <button type="button">Clear</button>
-      <button type="button">Color Mode</button>
+      <div class="slidecontainer">
+        <input type="range" min="4" max="128" value="16" step="4" class="slider" id="myRange">
+        <center><div id="demo"></div></center>
+      </div>
+      <button type="button" id="clear">Clear</button>
+      <button type="button" id="color">Color Mode</button>
     </div>
     <div class="container"></div>
     <script src="sketch.js" async defer></script>
