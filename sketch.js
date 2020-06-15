@@ -46,10 +46,20 @@ colorBtn.addEventListener('click', function(event) {
 })
 
 let slider = document.getElementById("myRange");
+slider.value = dim;
 let output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = "Dimensions: " + dim + "x" + dim; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
-  output.innerHTML = this.value;
+  output.innerHTML = "Dimensions: " + this.value + "x" + this.value;
 }
+
+const resetBtn = document.querySelector("#reset");
+
+resetBtn.addEventListener('click', function (event) {
+  pixels.forEach((pixel) => {
+    pixel.style.backgroundColor = 'white';
+  })
+  dim = slider.value;
+})

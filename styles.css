@@ -63,10 +63,15 @@ button:active {
 #clear {
   background-image: linear-gradient(62deg, #3A3d40 0%, #181719 100%);
 }
+#reset {
+  background-image: linear-gradient(62deg, #3A3d40 0%, #181719 100%);
+}
 .pixel {
   background-color: white;
 }
 .slidecontainer {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
