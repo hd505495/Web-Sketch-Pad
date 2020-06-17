@@ -5,14 +5,17 @@ const container = document.querySelector('.container');
 
 container.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
 
+/* create 'pixels' on sketch pad based on dimensions */
 for (let i = 0; i < dim*dim; i++) {
   const pixel = document.createElement('div');
   pixel.classList.add('pixel');
   container.appendChild(pixel);
 }
 
+/* querySelectorAll returns Nodelist, lets turn it into an array */
 let pixels = Array.from(document.querySelectorAll('.pixel'));
 
+/* mouse-over listener for each 'pixel' */
 pixels.forEach((pixel) => {
   pixel.addEventListener("mouseover", function(event) {
     if (!color) {
@@ -24,6 +27,7 @@ pixels.forEach((pixel) => {
   })
 })
 
+/* clear button & click listener */
 const clearBtn = document.querySelector('#clear');
 
 clearBtn.addEventListener('click', function(event) {
@@ -31,6 +35,8 @@ clearBtn.addEventListener('click', function(event) {
     pixel.style.backgroundColor = 'white';
   })
 })
+
+/* color button & click listener */
 const colorBtn = document.querySelector('#color');
 
 colorBtn.addEventListener('click', function(event) {
@@ -45,6 +51,7 @@ colorBtn.addEventListener('click', function(event) {
   }
 })
 
+/* get slider from DOM */
 let slider = document.getElementById("myRange");
 slider.value = dim;
 let output = document.getElementById("demo");
@@ -56,24 +63,31 @@ slider.oninput = function() {
   dim = this.value;
 }
 
+/* reset button */
 const resetBtn = document.querySelector("#reset");
 
 resetBtn.addEventListener('click', function (event) {
   pixels.forEach((pixel) => {
     pixel.style.backgroundColor = 'white';
   })
+  /* if user has changed dim with slider input */
   if (pixels.length != (dim*dim)) {
+    /* if user increases dimensions */
     if (pixels.length < (dim*dim)) {
+      /* define new number of columns equal to dim var */
       container.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
 
+      /*create additional pixels to meet user's request */
       for (let i = pixels.length; i < dim*dim; i++) {
         const pixel = document.createElement('div');
         pixel.classList.add('pixel');
         container.appendChild(pixel);
       }
 
+      /* redefine pixels array with newly created pixels appended */
       pixels = Array.from(document.querySelectorAll('.pixel'));
 
+      /* attach mouse listener to all pixels */
       pixels.forEach((pixel) => {
         pixel.addEventListener("mouseover", function(event) {
           if (!color) {
@@ -85,15 +99,15 @@ resetBtn.addEventListener('click', function (event) {
         })
       })
     }
+    /* if user decreases dimensions */
     else if (pixels.length > (dim*dim)) {
+      /* define new number of columns equal to dim var */
       container.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
 
+      /* loop from number of current pixels down to number of desired pixels */
       for (let i = pixels.length; i > dim*dim; i--) {
-        container.lastChild.remove();
-        /*container.removeChild(pixels[i]); */
-        /*pixels[i].remove();*/
-        pixels.pop();
-        //delete pixels[i];
+        container.lastChild.remove();  /* remove pixel from parent container in DOM */
+        pixels.pop(); /* remove pixel element from pixel array */
       }
     }
   }
